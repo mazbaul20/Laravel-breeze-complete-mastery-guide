@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Middleware\RoleMiddleware;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ProfileController;
@@ -22,6 +23,13 @@ Route::middleware('auth')->group(function () {
 require __DIR__.'/auth.php';
 
 //Role-based Dashboard
-Route::get('/admin/dashboard',[AdminController::class,'index']);
-Route::get('/user/dashboard',[UserController::class,'index']);
+Route::middleware(['auth', RoleMiddleware::class.':admin'])->group(function(){
+    Route::get('/admin/dashboard',[AdminController::class,'index']);
+    Route::get('/admin/logout',[AdminController::class,'logout'])->name('admin.logout');
+});
+
+Route::middleware(['auth', RoleMiddleware::class.':user'])->group(function(){
+    Route::get('/user/dashboard',[UserController::class,'index']);
+    Route::get('/user/logout',[UserController::class,'logout'])->name('user.logout');
+});
 

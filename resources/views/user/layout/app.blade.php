@@ -12,10 +12,10 @@
         <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
     </head>
     <body class="sb-nav-fixed">
-        @include('admin.layout.topNav')
+        @include('user.layout.topNav')
         <div id="layoutSidenav">
             <div id="layoutSidenav_nav">
-                @include('admin.layout.sidenav')
+                @include('user.layout.sidenav')
             </div>
             <div id="layoutSidenav_content">
                 <main>
